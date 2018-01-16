@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="Crime">
+        <item name="crime1">Rape</item>
+        <item name="crime2">Assault on women with intent to outrage her modesty</item>
+        <item name="crime3">Insult to the modesty of women</item>
+        <item name="crime4">Cruelty by husband or relatives</item>
+        <item name="crime5">Immoral traffic</item>
+        <item name="route6">College - Sector 14</item>
+        <item name="crime7">College - RMV</item>
+        <item name="crime8">College - Dabok</item>
+        <item name="crime9">College - Kalkamata</item>
+    </array>
+</resources>

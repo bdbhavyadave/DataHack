@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_crime"
+            android:icon="@drawable/ic_not_interested_black_24dp"
+            android:title="Crime" />
+        <item
+            android:id="@+id/nav_states"
+            android:icon="@drawable/ic_assistant_photo_black_24dp"
+            android:title="States" />
+        <item
+            android:id="@+id/nav_trend"
+            android:icon="@drawable/ic_trending_up_black_24dp"
+            android:title="Trend" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Manage Info" />
+    </group>
+</menu>
