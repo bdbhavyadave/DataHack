@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +27,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.ListIterator;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -40,6 +48,7 @@ public class HomeFragment extends Fragment {
     private String number2 = "";
     private String number3 = "";
     View homeView;
+    String link;
     private Unbinder unbinder;
     private static final int REQUEST_CALL = 1;
     private static final int REQUEST_SMS = 2;
@@ -48,7 +57,91 @@ public class HomeFragment extends Fragment {
     String coordinates = " ";
     Location mLastLocation;
 
-    private void getMyLocation(){
+    LocationManager locationManager;
+
+    private void getMyLocation()
+    {
+
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        if(locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, new android.location.LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    double longitude = location.getLongitude();
+                    double lattitude = location.getLatitude();
+
+                    LatLng latlong = new LatLng(lattitude,longitude);
+
+                    Geocoder gcoder = new Geocoder(getActivity().getApplicationContext());
+
+                    try {
+                        List<Address> adrlist = gcoder.getFromLocation(lattitude,longitude,1);
+
+                        coordinates = "Location: "+ adrlist.get(0).getLocality()+", "+adrlist.get(0).getCountryName()+"\n";
+                        link = "http://maps.google.com/maps?q=loc:" + String.format("%f,%f", lattitude, longitude);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String provider) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+
+                }
+            });
+        }
+
+        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new android.location.LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    double longitude = location.getLongitude();
+                    double lattitude = location.getLatitude();
+
+                    LatLng latlong = new LatLng(lattitude,longitude);
+
+                    Geocoder gcoder = new Geocoder(getActivity().getApplicationContext());
+
+                    try {
+                        List<Address> adrlist = gcoder.getFromLocation(lattitude,longitude,1);
+
+                        coordinates = "Location: "+ adrlist.get(0).getLocality()+", "+adrlist.get(0).getCountryName()+"\n";
+                        link = "http://maps.google.com/maps?q=loc:" + String.format("%f,%f", lattitude, longitude);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String provider) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+
+                }
+            });
+        }
+
+    }
+
+   /* private void getMyLocation(){
         if(mGoogleApiClient!=null) {
 
             mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
@@ -63,7 +156,7 @@ public class HomeFragment extends Fragment {
             }else{
                 coordinates = " ";
             }
-    }
+    }*/
 
     public String getInfo(int code)
     {
@@ -102,8 +195,8 @@ public class HomeFragment extends Fragment {
                     number2 = getInfo(2);
                     number3 = getInfo(3);
                     Toast.makeText(getActivity(),"Alert Sent",Toast.LENGTH_LONG).show();
-                    sms = getInfo(1) + "\n" + coordinates;
-                    if (sms.equals("" + coordinates)) {
+                    sms = getInfo(1) + "\n" + coordinates + link;
+                    if (sms.equals("" + coordinates + link)) {
 
                         SmsManager.getDefault().sendTextMessage(number, null, "Help!!" + coordinates, null, null);
                         if(!(number2.equals(null)))
@@ -186,8 +279,8 @@ public class HomeFragment extends Fragment {
                            number2 = getInfo(2);
                            number3 = getInfo(3);
                     Toast.makeText(getActivity(),"Alert Sent",Toast.LENGTH_LONG).show();
-                        sms = getInfo(1) + "\n" + coordinates;
-                        if (sms.equals(" "+coordinates)) {
+                        sms = getInfo(1) + "\n" + coordinates + link;
+                        if (sms.equals(" "+coordinates +link)) {
                             sms = "Help!!" +coordinates;
                             SmsManager.getDefault().sendTextMessage(number, null, sms, null, null);
                             if(!(number2.equals("")))
