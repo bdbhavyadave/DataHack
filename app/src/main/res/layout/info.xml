@@ -5,11 +5,47 @@
     android:fillViewport="true">
 <RelativeLayout
     android:layout_width="match_parent" android:layout_height="match_parent">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Saved Info"
+        android:textColor="@color/back"
+        android:id="@+id/btn_show"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp"
+        android:layout_margin="10dp"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update User Info"
+        android:textColor="@color/back"
+        android:id="@+id/update_info"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/btn_show"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Contact Info"
+        android:textColor="@color/back"
+        android:id="@+id/update_contact"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/update_info"
+        android:layout_margin="10dp"/>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_margin="20dp"
+        android:id="@+id/info_alert"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_below="@id/update_contact"
+        android:visibility="gone">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,20 +58,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
-            android:id="@+id/name"
-            android:layout_margin="5dp"/>
+            android:id="@+id/name"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Adress"
-            android:id="@+id/adress"
-            android:layout_margin="5dp"/>
+            android:id="@+id/adress"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Blood Group"
             android:id="@+id/bloodg"
-            android:layout_margin="5dp"/>
+            android:layout_marginBottom="5dp"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,27 +77,36 @@
             android:id="@+id/btnSyncInfo"
             android:textColor="@color/back"
             android:background="@color/colorPrimary"/>
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/contacts_alert"
+        android:layout_below="@id/update_contact"
+        android:layout_marginTop="20dp"
+        android:visibility="gone">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Emergency Alert Contacts"
             android:textAlignment="center"
             android:textSize="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:textColor="@color/colorAccent"
-            android:padding="5dp"/>
+            />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Contact 1"
             android:id="@+id/contact1"
-            android:layout_margin="5dp"/>
+            />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/contact2"
-            android:hint="Contact 2"/>
+            android:hint="Contact 2"
+            android:layout_marginBottom="5dp"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,6 +114,39 @@
             android:textColor="@color/back"
             android:id="@+id/btnSyncContact"
             android:background="@color/colorPrimary"/>
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/show_box"
+        android:layout_below="@id/update_contact">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_show"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:layout_margin="10dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/contact1_show"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:layout_margin="10dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/contact2_show"
+            android:textColor="#000000"
+            android:textSize="25dp"
+            android:layout_margin="10dp"
+            />
+
     </LinearLayout>
+
 </RelativeLayout>
     </ScrollView>
